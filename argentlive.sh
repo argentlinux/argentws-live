@@ -59,6 +59,10 @@ argent_live_installer_desktop() {
 	chmod 755 "/home/$liveuser/Desktop/argent-installer.desktop"
 }
 
+argent_live_pipewire() {
+	runuser -l "$liveuser" -c "systemctl --user enable pipewire-pulse.socket wireplumber.service pipewire.service" > /dev/null 2>&1
+}
+
 main() {
 	if checkroot && argent_is_live ; then
 		argent_add_live_user
@@ -67,6 +71,7 @@ main() {
 		argent_set_dm_configuration
 		argent_live_installer_desktop
 		argent_live_locale_switch
+		argent_live_pipewire
 	fi
 }
 
