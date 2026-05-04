@@ -61,6 +61,7 @@ argent_live_installer_desktop() {
 
 argent_live_pipewire() {
 	runuser -l "$liveuser" -c "systemctl --user enable pipewire-pulse.socket wireplumber.service pipewire.service" > /dev/null 2>&1
+	runuser -l "$liveuser" -c "systemctl --user start pipewire-pulse.socket wireplumber.service pipewire.service" > /dev/null 2>&1
 }
 
 main() {
