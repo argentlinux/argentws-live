@@ -65,9 +65,9 @@ argent_live_pipewire() {
 }
 
 argent_live_flathub() {
-	if [ -x /usr/bin/flatpak ] && [ -e /etc/calamares/flathub.flatpakrepo ] ; then
+	if [ -x /usr/bin/flatpak ] && [ -e /usr/share/argent-live/flathub.flatpakrepo ] ; then
 		mkdir -p /etc/flatpak/remotes.d
-		cp /etc/calamares/flathub.flatpakrepo /etc/flatpak/remotes.d/
+		cp /usr/share/argent-live/flathub.flatpakrepo /etc/flatpak/remotes.d/
 	fi
 }
 

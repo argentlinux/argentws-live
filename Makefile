@@ -22,3 +22,5 @@ install:
 	install -m 0755 argentlive.sh $(DESTDIR)/$(LIBEXECDIR)/
 	install -d $(DESTDIR)/$(SYSTEMD_UNITDIR)/
 	install -m 0644 argentlive.service $(DESTDIR)/$(SYSTEMD_UNITDIR)/
+	install -d $(DESTDIR)/usr/share/argent-live
+	install -m 0644 flathub.flatpakrepo $(DESTDIR)/usr/share/argent-live/
