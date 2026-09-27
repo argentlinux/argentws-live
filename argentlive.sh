@@ -64,8 +64,16 @@ argent_live_pipewire() {
 	runuser -l "$liveuser" -c "systemctl --user start pipewire-pulse.socket wireplumber.service pipewire.service" > /dev/null 2>&1
 }
 
+argent_live_flathub() {
+	if [ -x /usr/bin/flatpak ] && [ -e /etc/calamares/flathub.flatpakrepo ] ; then
+		mkdir -p /etc/flatpak/remotes.d
+		cp /etc/calamares/flathub.flatpakrepo /etc/flatpak/remotes.d/
+	fi
+}
+
 main() {
 	if checkroot && argent_is_live ; then
+		argent_live_flathub
 		argent_add_live_user
 		argent_live_user_groups
 		argent_live_user_password
