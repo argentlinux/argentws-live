@@ -71,8 +71,26 @@ argent_live_flathub() {
 	fi
 }
 
+# forcing nouveau to load on legacy nvidia cards
+argent_live_nvidia_legacy() {
+	local dev turing legacy
+	for dev in /sys/bus/pci/devices/* ; do
+		[[ "$(cat "$dev/vendor")" == "0x10de" ]] || continue
+		[[ "$(cat "$dev/class")" == 0x03* ]] || continue
+		if (( $(cat "$dev/device") >= 0x1e00 )) ; then
+			turing=1
+		elif [[ ! -e "$dev/driver" ]] ; then
+			legacy=1
+		fi
+	done
+	if [[ -n "$legacy" && -z "$turing" ]] ; then
+		modprobe nouveau > /dev/null 2>&1
+	fi
+}
+
 main() {
 	if checkroot && argent_is_live ; then
+		argent_live_nvidia_legacy
 		argent_live_flathub
 		argent_add_live_user
 		argent_live_user_groups
