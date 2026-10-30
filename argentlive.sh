@@ -79,7 +79,7 @@ argent_live_nvidia_legacy() {
 		[[ "$(cat "$dev/class")" == 0x03* ]] || continue
 		if (( $(cat "$dev/device") >= 0x1e00 )) ; then
 			turing=1
-		elif [[ ! -e "$dev/driver" ]] ; then
+		elif [[ ! -e "$dev/driver" && "$(cat "$dev/boot_vga" 2>/dev/null)" == 1 ]] ; then
 			legacy=1
 		fi
 	done
