@@ -88,8 +88,15 @@ argent_live_nvidia_legacy() {
 	fi
 }
 
+argent_live_cached() {
+	if [[ -f /run/initramfs/squashed.img ]] ; then
+		umount /run/initramfs/live > /dev/null 2>&1
+	fi
+}
+
 main() {
 	if checkroot && argent_is_live ; then
+		argent_live_cached
 		argent_live_nvidia_legacy
 		argent_live_flathub
 		argent_add_live_user
