@@ -37,9 +37,6 @@ argent_live_locale_switch() {
 		/usr/bin/localectl set-locale LANG="$lang_toset" > /dev/null 2>&1
 		/usr/bin/localectl set-keymap "$keymap_toset" > /dev/null 2>&1
 		/usr/sbin/env-update --no-ldconfig > /dev/null 2>&1
-	else
-		/usr/bin/eselect locale set "en_US.utf8" > /dev/null 2>&1
-		/usr/sbin/env-update --no-ldconfig > /dev/null 2>&1
 	fi
 }
 
@@ -57,11 +54,6 @@ argent_set_dm_configuration(){
 argent_live_installer_desktop() {
 	cp "/usr/share/applications/argent-installer.desktop" "/home/$liveuser/Desktop"
 	chmod 755 "/home/$liveuser/Desktop/argent-installer.desktop"
-}
-
-argent_live_pipewire() {
-	runuser -l "$liveuser" -c "systemctl --user enable pipewire-pulse.socket wireplumber.service pipewire.service" > /dev/null 2>&1
-	runuser -l "$liveuser" -c "systemctl --user start pipewire-pulse.socket wireplumber.service pipewire.service" > /dev/null 2>&1
 }
 
 argent_live_flathub() {
@@ -105,7 +97,6 @@ main() {
 		argent_set_dm_configuration
 		argent_live_installer_desktop
 		argent_live_locale_switch
-		argent_live_pipewire
 	fi
 }
 
